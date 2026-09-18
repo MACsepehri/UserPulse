@@ -18,6 +18,11 @@ body {
     background-attachment: fixed;
     cursor: default;
 }
+header {
+    background: white;
+    width: 100%;
+    height: 120px;
+}
 .flex { display: flex; }
 .h-left {
     position: absolute;
@@ -30,6 +35,15 @@ body {
     top: 30px;
 }
 .h-right a,.h-right button { margin-left: 20px; }
+.blue { color: #0062f6; }
+.title { font-size: 45px; }
+.base-section { width: 100%; height: 100%; }
+.section-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 a { text-decoration: none; text-underline-offset: 6px; color: #323232; }
 a:hover { text-decoration: underline; }
 #h-login-btn,#h-register-btn {
@@ -43,5 +57,6 @@ a:hover { text-decoration: underline; }
 }
 #h-login-btn { background: var(--base-btn-bg); border: 2px solid var(--base-btn-bg); }
 #h-login-btn:hover { background: none; color: var(--base-btn-bg); }
-#h-register-btn { color: var(--base-btn-bg); border: 2px solid var(--base-btn-bg); }
+#h-register-btn { color: var(--base-btn-bg); border: 2px solid var(--base-btn-bg); background: white; }
+#non-decoration:hover { text-decoration: none; }
 button,a { cursor: pointer; }

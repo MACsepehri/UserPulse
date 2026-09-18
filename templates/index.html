@@ -1,7 +1,44 @@
 {% extends "base/base.html" %}
 
 {% block head %}
+    <link rel="stylesheet" href="/static/css/style.css">
 {% endblock %}
 
 {% block body %}
+    <section class="base-section">
+        <div class="section-content">
+            <h2 class="title">همراه <span class="blue">رایگان</span> شما</h2>
+        </div>
+    </section>
+    <section id="section-one" class="base-section">
+        <div class="section-content" id="about-us">
+            <h2 class="title">درباره ی ما</h2>
+            <div class="about-desc">
+                <p>یک روز، داشتم به این فکر میکردم که شرکت ها شاید سالانه هزاران کاربر</p>
+                <p>از دست بدهند و نفهمند چرا. برای همین تصمیم گرفتم یک سیستم رایگان</p>
+                <p>راه اندازی کنم تا با گرفتن آمار کاربران وبسایت حدس بزند کاربر ممکن</p>
+                <p>است از سایت برود یا نه و احتمال آن چقدر است و به کمک هوش مصنوعی به</p>
+                <p>راحتی هرچه تمام تر با مشاهده ی آمار ها حدس میزند احتمال این ریزش چیست.</p>
+            </div>
+        </div>
+    </section>
+    <section id="section-two" class="base-section">
+        <div class="section-content" id="plans">
+            <h2 class="title">پلن ها</h2>
+            <div class="plans">
+                <a href="/plan?pt=free" id="non-decoration">
+                    <div class="plan-box">
+                        <h3>پلن رایگان</h3>
+                        <div class="plan-desc">
+                            <p>تنها پلن موجود پلن رایگان میباشد</p>
+                            <p>این پلن بدون محدودیت میباشد و با</p>
+                            <p>بررسی اطلاعات کاربران و هوش مصنوعی</p>
+                            <p>به حل مشکل ریزش کاربران شرکت شما</p>
+                            <p>کمک میکند.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

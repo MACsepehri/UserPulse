@@ -1,0 +1,22 @@
+.about-desc { line-height: 0.5; }
+#section-one {
+    position: absolute;
+    margin-top: 100vh;
+}
+#section-two {
+    position: absolute;
+    margin-top: 200vh;
+    text-align: center;
+}
+.plan-desc { line-height: 0.5; margin-top: 50px; }
+.plan-box {
+    text-align: center;
+    margin: auto;
+    width: 300px;
+    height: 260px;
+    padding: 10px;
+    border-radius: 10px;
+    background: white;
+    border-bottom: 2px solid var(--base-btn-bg);
+}
+.plans { margin-top: 150px; }
