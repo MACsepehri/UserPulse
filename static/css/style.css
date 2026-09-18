@@ -17,7 +17,7 @@
     padding: 10px;
     border-radius: 10px;
     background: white;
-    border-bottom: 2px solid var(--base-btn-bg);
+    border-bottom: 2px solid var(--base-bg);
 }
 .plans { margin-top: 150px; }
-footer { position: absolute; margin-top: 300vh; right: 50%; transform: translateX(50%); }
+footer { margin-top: 300vh; }

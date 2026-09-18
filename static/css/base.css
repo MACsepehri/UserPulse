@@ -4,7 +4,7 @@
 }
 * { font-family: "IranYekanLight"; transition: all 300ms ease-in-out; }
 :root {
-    --base-btn-bg: #0062f6;
+    --base-bg: #0062f6;
 }
 html,body {
     width: 100%;
@@ -55,8 +55,17 @@ a:hover { text-decoration: underline; }
     color: white;
     font-size: 16px;
 }
-#h-login-btn { background: var(--base-btn-bg); border: 2px solid var(--base-btn-bg); }
-#h-login-btn:hover { background: none; color: var(--base-btn-bg); }
-#h-register-btn { color: var(--base-btn-bg); border: 2px solid var(--base-btn-bg); background: white; }
+#h-login-btn { background: var(--base-bg); border: 2px solid var(--base-bg); }
+#h-login-btn:hover { background: none; color: var(--base-bg); }
+#h-register-btn { color: var(--base-bg); border: 2px solid var(--base-bg); background: white; }
 #non-decoration:hover { text-decoration: none; }
 button,a { cursor: pointer; }
+footer { position: absolute; margin-top: 300vh; right: 50%; transform: translateX(50%); }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+input:focus { outline: none; }

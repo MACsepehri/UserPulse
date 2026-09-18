@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/page/login.css">
+{% endblock %}
+
+{% block body %}
+    <section class="base-section">
+        <div class="section-content" style="text-align: center;">
+            <h2 class="title">همین الان وارد {% if mode == 'login' %}وارد شوید{% else %}حساب بسازید{% endif %}!</h2>
+            <div class="login-form-box">
+                <form action="/auth?complete=True&action_redirector={{ mode }}" method="post" id="login-form">
+                    {% if mode == 'login' %}
+                        <input type="text" placeholder="نام کاربری" name="usrname" class="input-box"><br>
+                        <input type="password" placeholder="رمز عبور" name="password" class="input-box"><br>
+                    {% else %}
+                        <input type="text" placeholder="نام کاربری" name="usrname" class="input-box"><br>
+                        <input type="text" placeholder="ایمیل" name="email" class="input-box"><br>
+                        <input type="password" placeholder="رمز عبور" name="password" class="input-box"><br>
+                        <p style="font-size: 14px; color: #9e9e9e;">ایمیل برای شرایط بحرانی استفاده میشود.</p>
+                    {% endif %}
+                    <input type="hidden" name="action_mode" value="{{ mode }}">
+                </form>
+                <button id="continue-btn">ادامه</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/auth.js"></script>
+{% endblock %}
