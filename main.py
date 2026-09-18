@@ -1,11 +1,21 @@
 from flask import Flask, render_template, redirect, flash, abort, session, request
+from static.database.db import User, db
 from static.blueprint.login import login_bp
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv,path
 
 app = Flask(__name__)
 app.register_blueprint(login_bp,url_prefix='/auth')
 app.secret_key = getenv('secret-key')
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+BASE_DIR = path.dirname(path.abspath(__file__))
+database_path = path.join(BASE_DIR, "static", "database", "db", "database.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{database_path}"
+
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():

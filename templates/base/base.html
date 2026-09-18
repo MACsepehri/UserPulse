@@ -36,8 +36,8 @@
         <script src="/static/js/script.js"></script>
     </main>
 
-    {% for flash_msg in get_flashed_mesasges() %}
+    {% for flash_msg in get_flashed_messages() %}
         <input type="hidden" id="flash_msg" value="{{ flash_msg }}"><script>alert(document.getElementById('flash_msg').value);</script>
-    {% endif %}
+    {% endfor %}
 </body>
 </html>
