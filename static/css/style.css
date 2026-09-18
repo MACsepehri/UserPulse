@@ -20,3 +20,4 @@
     border-bottom: 2px solid var(--base-btn-bg);
 }
 .plans { margin-top: 150px; }
+footer { position: absolute; margin-top: 300vh; right: 50%; transform: translateX(50%); }
