@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <title>UserPluse | نبض کاربران شما</title>
+
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    
+    <header class="flex">
+        <div class="h-right">
+            <button id="h-login-btn"><b>ورود</b></button>
+            <button id="h-register-btn"><b>ثبت نام</b></button>
+            <a href="/">صفحه ی اصلی</a>
+            <a href="/#about-us">درباره ی ما</a>
+            <a href="/#plans">پلن و سرویس ها</a>
+        </div>
+        <div class="h-left">
+            <h1>UserPluse | رشد تصاعدی شما</h1>
+        </div>
+    </header>
+
+    <main>
+        {% block body %}
+        {% endblock %}
+
+        <script src="/static/js/script.js"></script>
+    </main>
+</body>
+</html>
