@@ -1,0 +1,108 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+    <style>
+        #section-one { position: absolute; margin-top: 100vh; }
+        .table-container {
+            max-width: 900px;
+            margin: auto;
+            overflow-x: auto;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #2563eb;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 16px 20px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: 600;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f0f6ff;
+        }
+
+        tbody td {
+            color: #374151;
+        }
+
+        table {
+            width: max-content;
+            table-layout: fixed;
+        }
+
+        .table-head {
+            width: 300px;
+        }
+
+        footer { margin-top: 200vh; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section class="base-section">
+        <div class="section-content">
+            <h2 class="title">ساختار داده ها</h2>
+            <p>توجه : ساختار داده ها و اسم گذاری جدول ها باید کپی مثال باشد فقط داده ی اصلی فرق دارد.</p>
+            <p>در ادامه خواهیم گفت که چه نوع داده ای میتوانید برای هر جدول بگذارید.</p>
+        </div>
+    </section>
+    <section class="base-section" id="section-one">
+        <div class="section-content">
+            <h2 class="title">ساختار داده ها</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="table-head">تعداد بازدید کاربر از وبسایت</th>
+                            <th class="table-head">خدمات وبسایت</th>
+                            <th class="table-head">پر بازدید ترین سرویس ها</th>
+                            <th class="table-head">تاریخ استفاده ی پر بازدید ترین سرویس ها</th>
+                            <th class="table-head">کم بازدید ترین سرویس ها</th>
+                            <th class="table-head">تاریخ استفاده ی کم بازدید ترین سرویس ها</th>
+                            <th class="table-head">تاریخ بازدید سایت</th>
+                            <th class="table-head">اطلاعات کاربر</th>
+                            <th class="table-head">نام ستون های اطلاعات کاربری</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>('هاست رایگان','دامنه ی رایگان')</td>
+                            <td>[('سرویس نود جی اس',1),('سرویس پایتون',2)]</td>
+                            <td>[['18.9.1405','28.9.1405'],['13.10.1405','23.10.1405']]</td>
+                            <td>[('سرویس فلسک',1),('سرویس فست api',0)]</td>
+                            <td>[['18.9.1405','28.9.1405'],['-']]</td>
+                            <td>['13.12.1405','15.12.1405','23.12.1405']</td>
+                            <td>['رضا','شعبانی','12']</td>
+                            <td>['اسم','فامیلی','سن']</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <p>اگر خواستید تاریخ وارد نکنید به جایش '-' بگذارید.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
