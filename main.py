@@ -34,7 +34,7 @@ def plan():
         return abort(404)
     if not session['login']:
         return redirect('/auth?mode=login')
-    return render_template('page/plan.html',secret=session)
+    return render_template('page/plan.html',session=session)
 
 if __name__ == '__main__':
     app.run(debug=True)

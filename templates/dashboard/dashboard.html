@@ -35,11 +35,14 @@
                 <div class="user-service flex">
                     <div class="service-right">
                         <p>نام سرویس :</p>
-                        <h2>{{ session.service_name }}</h2>
-                        <hr style="width: 220px; border: 1px solid black;">
+                        <h2 style="margin-right: 30px;">{{ session.service_name }}</h2>
                         <p>توضیحات :</p>
-                        <pre>{{ session.service_desc }}</pre>
+                        <pre style="white-space: pre-wrap; width: 220px; margin-right: 30px;">{{ session.service_desc }}</pre>
+                    </div>
+                    
+                    <div class="flex middle-box">
                         <button id="delete-service" class="flex"><span class="delete-icon"></span> <b>حذف سرویس</b></button>
+                        <button id="continue-service" class="flex"><span class="continue-icon"></span> <b>مشاهده</b></button>
                     </div>
                 </div>
             {% endif %}

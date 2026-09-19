@@ -1,0 +1,15 @@
+footer { margin-top: 100vh; }
+#file {
+    width: 120px;
+    padding: 10px;
+    background: #97ff83;
+    border: 2px solid #18550c;
+    border-radius: 8px;
+    display: block;
+    cursor: pointer;
+    text-align: center;
+}
+
+#file p {
+    margin: 3px 0 0;
+}

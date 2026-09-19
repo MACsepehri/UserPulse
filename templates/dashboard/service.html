@@ -1,0 +1,47 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/page/service_page.css">
+{% endblock %}
+
+{% block body %}
+    <section class="base-section">
+        <div class="section-content">
+            <div class="flex box">
+                <div class="flex-top">
+                    <p style="font-size: 16px; color: #909090;">نام سرویس :</p>
+                    <h2>{{ session.service_name }}</h2>
+                    <form id="upload-form"
+                        action="/dashboard/service?send_file=True"
+                        method="post"
+                        enctype="multipart/form-data">
+
+                        <label for="file-input" id="file">
+                            آپلود فایل
+                            <p>.csv</p>
+                        </label>
+
+                        <input
+                            type="file"
+                            name="file"
+                            id="file-input"
+                            accept=".csv"
+                            style="display: none;"
+                        >
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const fileInput = document.getElementById("file-input");
+        const uploadForm = document.getElementById("upload-form");
+
+        fileInput.addEventListener("change", function () {
+            if (this.files.length > 0) {
+                uploadForm.submit();
+            }
+        });
+    </script>
+{% endblock %}

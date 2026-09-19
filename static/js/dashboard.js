@@ -14,3 +14,4 @@ try {
 }
 
 document.getElementById('delete-service').addEventListener('click',function(ev){ window.location.href = `/dashboard/delete-service?password=${password}`;})
+document.getElementById('continue-service').addEventListener('click',function(ev){ window.location.href = `/dashboard/service?password=${password}`; })

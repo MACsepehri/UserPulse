@@ -71,7 +71,7 @@ input:-webkit-autofill:active {
     -webkit-text-fill-color: #000 !important;
 }
 input:focus { outline: none; }
-input {
+input[type='text'],input[type='password'] {
     width: 200px;
     padding: 10px;
     margin: 15px;
