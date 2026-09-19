@@ -9,10 +9,11 @@
         <div class="section-content" style="text-align: center;">
             <h2 class="title">همین الان وارد {% if mode == 'login' %}وارد شوید{% else %}حساب بسازید{% endif %}!</h2>
             <div class="login-form-box">
-                <form action="/auth?complete=True&action_redirector={{ mode }}" method="post" id="login-form">
+                <form action="/auth/?complete=True&action_redirector={{ mode }}" method="post" id="login-form">
                     {% if mode == 'login' %}
                         <input type="text" placeholder="نام کاربری" name="usrname" class="input-box"><br>
                         <input type="password" placeholder="رمز عبور" name="password" class="input-box"><br>
+                        <input type="hidden" name="email" value="-">
                     {% else %}
                         <input type="text" placeholder="نام کاربری" name="usrname" class="input-box"><br>
                         <input type="text" placeholder="ایمیل" name="email" class="input-box"><br>
