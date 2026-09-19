@@ -8,4 +8,5 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     service_name = db.Column(db.String, default='-')
+    service_desc = db.Column(db.String, default='-')
     excel_filepath = db.Column(db.String, default='-')

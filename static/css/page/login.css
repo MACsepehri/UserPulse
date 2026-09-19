@@ -9,13 +9,4 @@
     color: white;
 }
 #continue-btn:hover { background: none; color: var(--base-bg); }
-.input-box {
-    width: 200px;
-    padding: 10px;
-    margin: 15px;
-    background: none;
-    border: none;
-    background: white;
-    border-bottom: 2px solid var(--base-bg);
-}
 footer { margin-top: 77vh; }

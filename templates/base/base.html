@@ -13,9 +13,19 @@
     
     <header class="flex">
         <div class="h-right">
-            <button id="h-login-btn"><b>ورود</b></button>
-            <button id="h-register-btn"><b>ثبت نام</b></button>
-            <a href="/">صفحه ی اصلی</a>
+            {% if not session.login %}
+                <button id="h-login-btn"><b>ورود</b></button>
+                <button id="h-register-btn"><b>ثبت نام</b></button>
+            {% else %}
+                <style>
+                    .h-right {
+                        margin-top: 15px;
+                    }
+                </style>
+                <a href="/">صفحه ی اصلی</a>
+                <a href="/dashboard/">پنل</a>
+                <a href="/auth/logout">خروج از حساب</a>
+            {% endif %}
             <a href="/#about-us">درباره ی ما</a>
             <a href="/#plans">پلن و سرویس ها</a>
         </div>

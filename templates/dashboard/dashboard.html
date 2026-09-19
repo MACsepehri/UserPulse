@@ -1,0 +1,50 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/css/page/dashboard.css">
+{% endblock %}
+
+{% block body %}
+    <section class="base-section">
+        <div class="section-content">
+            <div class="flex">
+                <div class="middle-right" style="text-align: center;">
+                    <h2 class="title">سلام <u style="text-underline-offset: 15px;" class="dark-blue">{{ session.userinfo.username }}</u> !</h2>
+                    <div>
+                        <p>خوشحالیم که اومدی به سایت ما.</p>
+                    </div>
+                </div>
+                <div class="middle-left">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="base-section" id="section-one">
+        <div class="section-content">
+            {% if session.service_name == '-' %}
+                <div class="create-service">
+                    <h2 class="small-title">شما هنوز سرویس ندارید.</h2>
+                    <form action="/dashboard/create-service" method="post" id="create-service-form">
+                        <input type="text" placeholder="نام پروژه" name="service-name"><br>
+                        <textarea id="service-desc" placeholder="توضیحات ..." name="service-desc"></textarea><br>
+                    </form>
+                    <button id="continue-btn">ادامه</button>
+                </div>
+            {% else %}
+                <div class="user-service flex">
+                    <div class="service-right">
+                        <p>نام سرویس :</p>
+                        <h2>{{ session.service_name }}</h2>
+                        <hr style="width: 220px; border: 1px solid black;">
+                        <p>توضیحات :</p>
+                        <pre>{{ session.service_desc }}</pre>
+                        <button id="delete-service">حذف سرویس</button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <script src="/static/js/dashboard.js"></script>
+{% endblock %}

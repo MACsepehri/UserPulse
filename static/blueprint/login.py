@@ -14,7 +14,7 @@ def login():
         mode = request.args.get('mode', '')
         if mode not in ('login', 'register'):
             abort(404)
-        return render_template('page/auth.html',mode=mode)
+        return render_template('page/auth.html',mode=mode,session=session)
     
     action_redirector = request.args.get('action_redirector','')
     complete = request.args.get('complete','')
@@ -46,8 +46,8 @@ def login():
             return redirect('/auth?mode=register')
         user = User(username=username,email=email,password=password)
         session['login'] = True
-        session['excel_filepath'] = user.excel_filepath
-        session['service_name'] = user.service_name
+        session['excel_filepath'] = '-'
+        session['service_name'] = '-'
         session['userinfo'] = {'username':user.username,'email':user.email,'password':user.password}
         db.session.add(user)
         db.session.commit()
