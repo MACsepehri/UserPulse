@@ -30,7 +30,6 @@ def login():
 
     username = request.form.get('usrname', '').strip()
     password = request.form.get('password', '')
-    hashed_password = generate_password_hash(password)
 
     if not username or not password:
         flash('اسم یا رمز عبور نامعتبر.')
@@ -38,9 +37,9 @@ def login():
 
     if action_redirector == 'login':
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username,password=password).first()
 
-        if user and check_password_hash(user.password, password):
+        if user:
 
             session['login'] = True
             session['excel_filepath'] = user.excel_filepath
@@ -49,7 +48,7 @@ def login():
             session['userinfo'] = {
                 'username': user.username,
                 'email': user.email,
-                'password': hashed_password
+                'password': password
             }
 
             flash('با موفقیت وارد شدید!')
@@ -66,9 +65,10 @@ def login():
             flash('ایمیل نامعتبر.')
             return redirect('/auth?mode=register')
 
-        existing_user = User.query.filter(
-            (User.username == username) |
-            (User.email == email)
+        existing_user = User.query.filter_by(
+            username=username,
+            email=email,
+            password=password
         ).first()
 
         if existing_user:
@@ -78,21 +78,21 @@ def login():
         user = User(
             username=username,
             email=email,
-            password=hashed_password
+            password=password
         )
 
         db.session.add(user)
         db.session.commit()
 
         session['login'] = True
-        session['password'] = hashed_password
+        session['password'] = password
         session['excel_filepath'] = user.excel_filepath
         session['service_name'] = user.service_name
 
         session['userinfo'] = {
             'username': user.username,
             'email': user.email,
-            'password': hashed_password
+            'password': password
         }
 
         flash('با موفقیت ثبت‌نام و وارد شدید.')

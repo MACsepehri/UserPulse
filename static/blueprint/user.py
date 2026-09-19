@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort, redirect, flash, request, session
-from werkzeug.security import check_password_hash
 from static.database.db import User, db
+from service import BaseModel
 import os
 
 user_bp = Blueprint('dashboard', __name__,url_prefix='/dashboard')
@@ -14,25 +14,39 @@ def dashboard():
         return redirect('/auth?mode=login')
     return render_template('dashboard/dashboard.html',session=session)
 
-@user_bp.route('/create-service',methods=['POST'])
-def create_user():
+@user_bp.route('/create-service', methods=['POST'])
+def create_service():
     if not session:
         session['login'] = False
+
     if not session['login']:
         flash('لطفا ابتدا وارد حساب خود شوید.')
         return redirect('/auth?mode=login')
-    
-    service_name = request.form.get('service-name','')
-    service_desc = request.form.get('service-desc','')
-    if(service_name==''or service_desc==''):
+
+    service_name = request.form.get('service-name', '')
+    service_desc = request.form.get('service-desc', '')
+
+    if service_name == '' or service_desc == '':
         flash('لطفا تمامی مقادیر را وارد کنید.')
         return redirect('/dashboard#section-one')
-    user = User(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password'])
+
+    user = User.query.filter_by(
+        username=session['userinfo']['username'],
+        email=session['userinfo']['email'], password=session['userinfo']['password']
+    ).first()
+
+    if not user:
+        flash('کاربر پیدا نشد.')
+        return redirect('/auth?mode=login')
+
     user.service_name = service_name
     user.service_desc = service_desc
-    db.session.commit()
+
     session['service_name'] = service_name
     session['service_desc'] = service_desc
+
+    db.session.commit()
+
     flash('سرویس با موفقیت ساخته شد.')
     return redirect('/dashboard/')
 
@@ -45,7 +59,7 @@ def delete_service():
         return redirect('/auth?mode=login')
     password = request.args.get('password','')
     if (session['userinfo']['password']==password):
-        user = User(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password'])
+        user = User.query.filter_by(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password']).first()
         if(user):
             if(user.service_name==''or user.service_desc==''):
                 flash('شما سرویسی ندارید که بخواهید حذف کنید.')
@@ -76,12 +90,13 @@ def view_service():
         if(password!=session['userinfo']['password']):
             flash('کاربر پیدا نشد.')
             return redirect('/dashboard#section-one')
-        user = User(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password'])
+        user = User.query.filter_by(password=password).first()
         if not user:
+            print(1)
             flash('ابتدا وارد شوید.')
             return redirect('/auth?mode=login')
-        if(user.service_name=='-'or user.service_desc=='-'):
-            flash('شما سرویس ندارید')
+        if not user.service_name or not user.service_desc:
+            flash('شما سرویسی ندارید.')
             return redirect('/dashboard#section-one')
         return render_template('dashboard/service.html',session=session,user=user)
     else:
@@ -97,14 +112,37 @@ def view_service():
         if extension != '.csv':
             flash('فایل نامعتبر. فایل باید با پسوند .csv باشد.')
             return redirect(f'/dashboard/service?password={session["userinfo"]["password"]}')
-        user = User(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password'])
+        user = User.query.filter_by(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password']).first()
         if not user:
+            print(2)
             flash('کاربر پیدا نشد.')
             return redirect('/auth?mode=login')
         if not os.path.exists(f'static/src/{session["userinfo"]["username"]}'):
             os.mkdir(f'static/src/{session["userinfo"]["username"]}')
+        session['excel_filepath'] = f'static/src/{session["userinfo"]["username"]}/{csv_file.filename}'
         user.excel_filepath = f'static/src/{session["userinfo"]["username"]}/{csv_file.filename}'
         csv_file.save(user.excel_filepath)
         db.session.commit()
         flash('فایل با موفقیت ذحیره شد.')
         return redirect(f'/dashboard/service?password={session["userinfo"]["password"]}')
+
+@user_bp.route('/check-file')
+def check_file():
+    if not session:
+        session['login'] = False
+    if not session['login']:
+        flash('لطفا ابتدا وارد حساب خود شوید.')
+        return redirect('/auth?mode=login')
+    password = request.args.get('password','')
+    if password != session['userinfo']['password']:
+        flash('کاربر پیدا نشد.')
+        return redirect('/auth?mode=login')
+    user = User.query.filter_by(username=session['userinfo']['username'],email=session['userinfo']['email'],password=session['userinfo']['password']).first()
+    if not user:
+        flash('کاربر پیدا نشد.')
+        return redirect('/auth?mode=login')
+    model = BaseModel()
+    model.add_array()
+    model.create_df()
+    res = model.calculate()
+    return render_template('dashboard/result.html',user=user,result=res)

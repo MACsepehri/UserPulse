@@ -36,5 +36,9 @@ def plan():
         return redirect('/auth?mode=login')
     return render_template('page/plan.html',session=session)
 
+@app.route('/data-structure')
+def data_structure_route():
+    return render_template('blog/data-structure.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

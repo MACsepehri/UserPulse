@@ -11,37 +11,61 @@
                 <div class="flex-top">
                     <p style="font-size: 16px; color: #909090;">نام سرویس :</p>
                     <h2>{{ session.service_name }}</h2>
-                    <form id="upload-form"
-                        action="/dashboard/service?send_file=True"
-                        method="post"
-                        enctype="multipart/form-data">
+                    {% if session.excel_filepath == '-' %}
+                        <form id="upload-form"
+                            action="/dashboard/service?send_file=True"
+                            method="post"
+                            enctype="multipart/form-data">
 
-                        <label for="file-input" id="file">
-                            آپلود فایل
-                            <p>.csv</p>
-                        </label>
+                            <label for="file-input" id="file">
+                                آپلود فایل
+                                <p>.csv</p>
+                            </label>
 
-                        <input
-                            type="file"
-                            name="file"
-                            id="file-input"
-                            accept=".csv"
-                            style="display: none;"
-                        >
-                    </form>
+                            <input
+                                type="file"
+                                name="file"
+                                id="file-input"
+                                accept=".csv"
+                                style="display: none;"
+                            >
+                        </form>
+                        <hr>
+                        <div style="line-height: 0.5;">
+                            <p>شما نمیتوانید ساختار csv خود</p>
+                            <p>را به هر شکلی بنویسید. برای</p>
+                            <p>اطلاعات بیشتر به لینک زیر بروید :</p>
+                            <a href="/data-structure">ساختار داده ی شما</a>
+                        </div>
+                    {% else %}
+                        <div class="flex-bottom">
+                            <hr>
+                            <h2>اطلاعات و نتایج</h2>
+                            <button id="connect-to-api">بررسی</button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
+    <input type="hidden" value="{{ session.userinfo.password }}" id="password">
+
     <script>
         const fileInput = document.getElementById("file-input");
         const uploadForm = document.getElementById("upload-form");
-
-        fileInput.addEventListener("change", function () {
-            if (this.files.length > 0) {
-                uploadForm.submit();
-            }
-        });
+        
+        try {
+            fileInput.addEventListener("change", function () {
+                if (this.files.length > 0) {
+                    uploadForm.submit();
+                }
+            });
+        } catch {
+            // ...
+        }
+        document.getElementById('connect-to-api').addEventListener('click',(ev)=>{
+            window.location.href = `/dashboard/check-file?password=${document.getElementById('password').value}`;
+        })
     </script>
 {% endblock %}

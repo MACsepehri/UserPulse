@@ -9,7 +9,17 @@ footer { margin-top: 100vh; }
     cursor: pointer;
     text-align: center;
 }
-
-#file p {
-    margin: 3px 0 0;
+#file p { margin: 3px 0 0; }
+#connect-to-api {
+    width: 130px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--base-bg);
+    border: 2px solid var(--base-bg);
+    color: white;
 }
+#connect-to-api:hover {
+    background: none;
+    color: var(--base-bg);
+}
+.flex-bottom { text-align: center; margin: auto; }
