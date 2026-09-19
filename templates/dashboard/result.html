@@ -1,0 +1,15 @@
+{% extends "base/base.html" %}
+
+{% block head %}
+    <style>
+        .model-result h2 { margin-right: 35%; }
+        .model-result pre { margin-left: 35%; }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="model-result">
+        <h2 class="title">نتایج بررسی :</h2>
+        <pre dir="ltr">{{ result }}</pre>
+    </div>
+{% endblock %}
