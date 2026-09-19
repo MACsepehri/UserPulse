@@ -18,6 +18,32 @@
     color: white;
 }
 #continue-btn:hover { background: none; color: var(--base-bg); }
+#delete-service {
+    padding: 10px;
+    width: 130px;
+    height: 50px;
+    margin-top: 30px;
+    background: #ff4646;
+    border: 2px solid #ff4646;
+    border-radius: 10px;
+    color: white;
+}
+#delete-service b { margin-top: 4px; margin-right: 5px; }
+#delete-service:hover {
+    background: none;
+    color: #ff4646;
+}
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    background: white;
+    margin-top: 2px;
+    mask: url("/static/image/icon/delete-icon.png") center / contain no-repeat;
+    -webkit-mask: url("/static/image/icon/delete-icon.png") center / contain no-repeat;
+}
+#delete-service:hover .delete-icon {
+    background: #ff4646;
+}
 .create-service,.user-service {
     margin: auto;
     text-align: center;

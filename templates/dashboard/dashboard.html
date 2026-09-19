@@ -39,12 +39,20 @@
                         <hr style="width: 220px; border: 1px solid black;">
                         <p>توضیحات :</p>
                         <pre>{{ session.service_desc }}</pre>
-                        <button id="delete-service">حذف سرویس</button>
+                        <button id="delete-service" class="flex"><span class="delete-icon"></span> <b>حذف سرویس</b></button>
                     </div>
                 </div>
             {% endif %}
         </div>
     </section>
+
+    <div style="display: none;">
+        <!--
+            this part is for js, please don't change this code it can interrupt actions
+            you might not find that. thank you for your attension
+        -->
+        <input type="hidden" value="{{ session.userinfo.password }}" id="password">
+    </div>
 
     <script src="/static/js/dashboard.js"></script>
 {% endblock %}

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, abort, redirect, flash, request, session
+from werkzeug.security import generate_password_hash
 from static.database.db import User, db
 
 login_bp = Blueprint('auth', __name__,url_prefix='/auth')
@@ -29,7 +30,7 @@ def login():
         if(user):
             session['excel_filepath'] = user.excel_filepath
             session['service_name'] = user.service_name
-            session['userinfo'] = {'username':user.username,'email':user.email,'password':user.password}
+            session['userinfo'] = {'username':user.username,'email':user.email,'password':generate_password_hash(user.password)}
             session['login'] = True
             flash('با موفقیت وارد شدید!')
             return redirect('/dashboard')
@@ -41,14 +42,14 @@ def login():
         if not email.endswith('@gmail.com'):
             flash('ایمیل نامعبر.')
             return redirect('/auth?mode=register')
-        if(User.query.filter_by(username=username,email=email,password=password).first()):
+        if(User.query.filter_by(username=username,email=email,password=generate_password_hash(password)).first()):
             flash('یکی از اطلاعات شما برای کاربر دیگری صدق میکند.')
             return redirect('/auth?mode=register')
-        user = User(username=username,email=email,password=password)
+        user = User(username=username,email=email,password=generate_password_hash(password))
         session['login'] = True
         session['excel_filepath'] = '-'
         session['service_name'] = '-'
-        session['userinfo'] = {'username':user.username,'email':user.email,'password':user.password}
+        session['userinfo'] = {'username':user.username,'email':user.email,'password':generate_password_hash(user.password)}
         db.session.add(user)
         db.session.commit()
         flash('با موفقیت وارد شدید')
