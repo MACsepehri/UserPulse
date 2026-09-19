@@ -268,6 +268,16 @@ class BaseModel:
 
         msg = 'model result :\n\n'
 
+        msg += 'Status legend\n'
+        msg += '-----------------------------------------------------------\n'
+        msg += '🟢 = Good / Normal\n'
+        msg += '🟡 = Unusual but okay\n'
+        msg += '🟠 = Warning\n'
+        msg += '🔴 = High warning\n'
+        msg += '⚫ = Very high usage interval / Very high warning\n'
+        msg += '⚪ = No valid usage data\n'
+        msg += '___________________________________________________________\n\n'
+
         for index, result in enumerate(results, start=1):
 
             msg += f'User {index}\n\n'
@@ -281,7 +291,7 @@ class BaseModel:
             website_data = result['website_data']
 
             if not website_data['valid']:
-                msg += "Status: ⚪ (user didn't use the plan up to now\n"
+                msg += "Status: ⚪ (user didn't use the plan up to now)\n"
             else:
                 msg += f'Max difference: {website_data["max_difference"]} days\n'
                 msg += f'Last difference: {website_data["last_difference"]} days\n'
@@ -334,6 +344,147 @@ class BaseModel:
                 msg += '-----------------------------\n'
 
             msg += '___________________________________________________________\n\n'
+
+        total_users = len(results)
+        total_website_visits = 0
+        total_service_visits = 0
+
+        website_max_differences = []
+        website_last_differences = []
+        website_average_intervals = []
+        website_all_differences = []
+
+        service_max_differences = []
+        service_last_differences = []
+        service_average_intervals = []
+        service_all_differences = []
+
+        total_services = 0
+        valid_website_users = 0
+        valid_services = 0
+
+        for result in results:
+
+            total_website_visits += int(result['total_visit'])
+
+            website_data = result['website_data']
+
+            if website_data['valid']:
+                valid_website_users += 1
+                website_max_differences.append(
+                    website_data['max_difference']
+                )
+                website_last_differences.append(
+                    website_data['last_difference']
+                )
+                website_average_intervals.append(
+                    website_data['average']
+                )
+                website_all_differences.extend(
+                    website_data['differences']
+                )
+
+            for usage in result['most_usage_part_data']:
+                total_services += 1
+                total_service_visits += int(usage['total_visits'])
+
+                if usage['data']['valid']:
+                    valid_services += 1
+                    service_max_differences.append(
+                        usage['data']['max_difference']
+                    )
+                    service_last_differences.append(
+                        usage['data']['last_difference']
+                    )
+                    service_average_intervals.append(
+                        usage['data']['average']
+                    )
+                    service_all_differences.extend(
+                        usage['data']['differences']
+                    )
+
+            for usage in result['less_usage_part_data']:
+                total_services += 1
+                total_service_visits += int(usage['total_visits'])
+
+                if usage['data']['valid']:
+                    valid_services += 1
+                    service_max_differences.append(
+                        usage['data']['max_difference']
+                    )
+                    service_last_differences.append(
+                        usage['data']['last_difference']
+                    )
+                    service_average_intervals.append(
+                        usage['data']['average']
+                    )
+                    service_all_differences.extend(
+                        usage['data']['differences']
+                    )
+
+        msg += 'ALL DATA STATISTICS\n'
+        msg += '===========================================================\n\n'
+
+        msg += f'Total users: {total_users}\n'
+        msg += f'Total website visits: {total_website_visits}\n'
+        msg += f'Total services: {total_services}\n'
+        msg += f'Total service visits: {total_service_visits}\n\n'
+
+        msg += 'Website usage - all users\n'
+        msg += '-----------------------------------------------------------\n'
+
+        if valid_website_users == 0:
+            msg += "Status: ⚪ (no valid website usage data)\n"
+        else:
+            overall_website_max = self.average(
+                website_max_differences
+            )
+            overall_website_last = self.average(
+                website_last_differences
+            )
+            overall_website_average = self.average(
+                website_average_intervals
+            )
+            overall_website_difference_average = self.average(
+                website_all_differences
+            )
+
+            msg += f'Users with valid data: {valid_website_users}\n'
+            msg += f'Average max difference: {overall_website_max:.2f} days\n'
+            msg += f'Average last difference: {overall_website_last:.2f} days\n'
+            msg += f'Average usage interval: {overall_website_average:.2f} days\n'
+            msg += f'Overall day usage difference average: {overall_website_difference_average:.2f} days\n'
+            msg += f'Status: {self.get_website_warning(overall_website_average)}\n'
+
+        msg += '\n'
+
+        msg += 'Services usage - all users\n'
+        msg += '-----------------------------------------------------------\n'
+
+        if valid_services == 0:
+            msg += "Status: ⚪ (no valid service usage data)\n"
+        else:
+            overall_service_max = self.average(
+                service_max_differences
+            )
+            overall_service_last = self.average(
+                service_last_differences
+            )
+            overall_service_average = self.average(
+                service_average_intervals
+            )
+            overall_service_difference_average = self.average(
+                service_all_differences
+            )
+
+            msg += f'Services with valid data: {valid_services}\n'
+            msg += f'Average max difference: {overall_service_max:.2f} days\n'
+            msg += f'Average last difference: {overall_service_last:.2f} days\n'
+            msg += f'Average usage interval: {overall_service_average:.2f} days\n'
+            msg += f'Overall day usage difference average: {overall_service_difference_average:.2f} days\n'
+            msg += f'Status: {self.get_service_warning(overall_service_average)}\n'
+
+        msg += '___________________________________________________________\n\n'
 
         return msg
 
