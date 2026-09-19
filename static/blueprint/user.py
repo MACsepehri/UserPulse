@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, abort, redirect, flash, request, s
 from static.database.db import User, db
 from service import BaseModel
 import pandas as pd
+import shutil
 import os
 import ast
 
@@ -89,6 +90,10 @@ def delete_service():
 
             session['service_name'] = '-'
             session['service_desc'] = '-'
+
+            for listdir in os.listdir('static/src'):
+                if listdir == session['userinfo']['username']:
+                    shutil.rmtree(f'static/src/{listdir}')
 
             db.session.commit()
 
