@@ -17,7 +17,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{database_path}"
 
 db.init_app(app)
 
-client = OpenAI(base_url='https://apihub.agnes-ai.com/v1', api_key='sk-5O7kCCMrOFv92jzrp3FA3wb6KP5tTjgpEYT8IoQZlTdusoUJ')
+client = OpenAI(base_url='https://apihub.agnes-ai.com/v1', api_key=getenv('api_key'))
 
 with app.app_context():
     db.create_all()
