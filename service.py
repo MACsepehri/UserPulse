@@ -520,8 +520,8 @@ mydata = [
     ['name', 'lastname', 'phonenumber', 'email'],
 ]
 
-# model = Model()
-# model.add_array(mydata)
-# model.create_df()
-# result = model.calculate()
-# model.to_html(result)
+model = BaseModel()
+model.add_array(mydata)
+model.create_df()
+result = model.calculate()
+model.to_html(result)
